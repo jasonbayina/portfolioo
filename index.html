@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Jason Bayina | BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green: #00c896;
+    --green-dark: #00a07a;
+    --dark: #1a1a1a;
+    --darker: #111111;
+    --card: #222222;
+    --card2: #2a2a2a;
+    --border: #333333;
+    --text: #e8e8e8;
+    --muted: #888888;
+    --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--darker); color: var(--text); line-height: 1.6; font-size: 15px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(20,20,20,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+  }
+  .nav-logo { font-size: 22px; }
+  .nav-links { display: flex; list-style: none; }
+  .nav-links a {
+    display: block; padding: 0 1.1rem;
+    font-size: 14px; font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; line-height: 60px;
+    transition: color 0.15s; white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--white); font-weight: 600; }
+
+  /* HERO */
+  .hero {
+    height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.72)),
+      url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1800&q=80') center/cover no-repeat;
+  }
+  .hero-content { position: relative; z-index: 1; padding: 0 1.5rem; }
+  .hero-content h1 {
+    font-size: clamp(3rem, 7vw, 5.2rem);
+    font-weight: 700; color: var(--white);
+    line-height: 1.08; margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-content p { font-size: 1.05rem; color: rgba(255,255,255,0.65); font-weight: 300; margin-bottom: 2rem; }
+  .hero-btn {
+    display: inline-block; padding: 13px 34px;
+    background: var(--green); color: #000;
+    font-weight: 600; font-size: 14px;
+    border-radius: 6px; text-decoration: none;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .hero-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  /* SECTIONS */
+  section { scroll-margin-top: 60px; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+  .section-block { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+  .section-alt { background: rgba(0,0,0,0.25); }
+  .section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+  .section-desc { font-size: 14.5px; color: var(--muted); max-width: 580px; line-height: 1.75; margin-bottom: 2.5rem; }
+
+  /* À PROPOS */
+  .apropos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .apropos-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 14.5px; }
+  .info-list { list-style: none; }
+  .info-list li { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .info-list li:last-child { border-bottom: none; }
+  .info-key { color: var(--muted); width: 120px; flex-shrink: 0; }
+  .info-val { color: var(--text); font-weight: 500; }
+
+  /* COMPÉTENCES */
+  .skills-cat { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 2rem 0 1rem; }
+  .skills-cat:first-of-type { margin-top: 0; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 13px 15px; display: flex; align-items: center; gap: 10px;
+    font-size: 13.5px; font-weight: 500; color: var(--text);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .skill-card:hover { border-color: var(--green); background: var(--card2); }
+  .sk-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  /* STAGES */
+  .stage-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .stage-card:hover { border-color: #444; }
+  .stage-head {
+    padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  }
+  .stage-org { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .stage-period { font-size: 13px; color: var(--muted); }
+  .stage-badge { font-size: 11px; font-weight: 600; padding: 4px 14px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .badge-reel { background: rgba(0,200,150,0.1); color: var(--green); border: 1px solid rgba(0,200,150,0.25); }
+  .badge-sim  { background: rgba(120,100,255,0.1); color: #a89aff; border: 1px solid rgba(120,100,255,0.25); }
+  .stage-body { padding: 1.5rem 2rem; }
+  .stage-context { color: var(--muted); font-size: 14px; line-height: 1.75; margin-bottom: 1.5rem; }
+  .missions-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .mission { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .mission:last-child { border-bottom: none; }
+  .m-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green); font-weight: 500; flex-shrink: 0; padding-top: 2px; }
+  .m-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
+  .m-text strong { color: var(--text); font-weight: 600; }
+  .stage-footer { padding: 1rem 2rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px; background: rgba(0,0,0,0.2); }
+  .tool { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; padding: 3px 10px; border-radius: 5px; background: var(--card2); border: 1px solid var(--border); color: var(--text); }
+
+  /* COURS */
+  .cours-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; transition: border-color 0.2s; }
+  .cours-card:hover { border-color: #444; }
+  .cours-head { display: flex; align-items: stretch; }
+  .cours-stripe { width: 4px; background: #1ba0d7; flex-shrink: 0; }
+  .cours-head-inner { flex: 1; padding: 1.2rem 1.75rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border); }
+  .cours-name { font-size: 1.05rem; font-weight: 700; color: var(--white); }
+  .cours-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .cours-badge { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; background: rgba(27,160,215,0.1); color: #5bc8f0; border: 1px solid rgba(27,160,215,0.2); white-space: nowrap; flex-shrink: 0; }
+  .cours-body { padding: 1.5rem 1.75rem; }
+  .cours-summary { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+  .notions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+  .notion { font-size: 12px; padding: 3px 10px; border-radius: 20px; background: var(--card2); border: 1px solid var(--border); color: var(--muted); }
+  .code-block { background: #0d1117; border-radius: 8px; padding: 14px 16px; }
+  .code-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 10px; }
+  .code-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .code-tags span { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); background: rgba(0,200,150,0.07); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(0,200,150,0.15); }
+
+  /* VEILLE / CERTIFICATIONS */
+  .placeholder { border: 2px dashed var(--border); border-radius: 12px; padding: 2.5rem; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.8; }
+  .ph-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .contact-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; gap: 14px; transition: border-color 0.15s; }
+  .contact-card:hover { border-color: var(--green); }
+  .c-ico { font-size: 1.5rem; }
+  .c-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .c-val { font-size: 14px; font-weight: 500; color: var(--text); margin-top: 2px; }
+
+  footer { padding: 2rem; text-align: center; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
+  footer span { color: var(--green); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🦁</div>
+  <ul class="nav-links">
+    <li><a href="#accueil" class="active">Accueil</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#parcours">Parcours scolaire</a></li>
+    <li><a href="#stages">Stages</a></li>
+    <li><a href="#realisations">Réalisations</a></li>
+    <li><a href="#veille">Veille technologique</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="accueil" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Bienvenue sur mon<br>Portfolio !</h1>
+    <p>Bayina Jason — Élève BTS SIO SISR</p>
+    <a href="#apropos" class="hero-btn">Découvrir mon profil</a>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos" class="section-block">
+  <div class="container reveal">
+    <div class="section-label">Qui suis-je ?</div>
+    <h2 class="section-title">À propos</h2>
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p style="font-size:1.15rem; font-weight:600; color:var(--white); margin-bottom:1.25rem;">Je m'appelle Jason Bayina.</p>
+        <p>Actuellement en 2ème année de BTS SIO option SISR (Solutions d'Infrastructure, Systèmes et Réseaux), je me forme aux métiers de l'administration systèmes et réseaux.</p>
+        <p>Je suis titulaire d'un Baccalauréat Général avec les options SVT (Sciences de la Vie et de la Terre) et SES (Sciences Économiques et Sociales).</p>
+      </div>
+      <ul class="info-list">
+        <li><span class="info-key">Nom</span><span class="info-val">Jason Bayina</span></li>
+        <li><span class="info-key">Formation</span><span class="info-val">BTS SIO &mdash; SISR</span></li>
+        <li><span class="info-key">&Eacute;tablissement</span><span class="info-val">H3 Campus</span></li>
+        <li><span class="info-key">Ann&eacute;e</span><span class="info-val">2024 &ndash; 2026</span></li>
+        <li><span class="info-key">Email</span><span class="info-val">jason.bayina@gmail.com</span></li>
+
+      </ul>
+    </div>
+
+    <!-- ONGLET BTS SIO -->
+    <div style="margin-top:2.5rem; margin-bottom:1.5rem;">
+      <button onclick="var d=document.getElementById('def-bts');var a=document.getElementById('arrow-bts');if(d.style.display==='none'){d.style.display='block';a.style.transform='rotate(90deg)'}else{d.style.display='none';a.style.transform='rotate(0deg)'}" style="width:100%; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:1.2rem;">&#127979;</span>
+          <span style="font-size:14px; font-weight:600; color:var(--white);">Qu'est-ce que le BTS SIO ?</span>
+        </div>
+        <span id="arrow-bts" style="color:var(--green); font-size:18px; transition:transform 0.2s;">&#9654;</span>
+      </button>
+      <div id="def-bts" style="display:none; background:var(--card); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; padding:1.5rem 1.75rem;">
+        <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:1.25rem;">
+          Le <strong style="color:var(--white);">BTS SIO</strong> (Brevet de Technicien Supérieur Services Informatiques aux Organisations) est un diplôme de niveau Bac+2 qui forme des techniciens capables de gérer, administrer et sécuriser les systèmes informatiques au sein des entreprises et organisations.
+        </p>
+        <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:1.25rem;">
+          Il se décline en <strong style="color:var(--white);">deux options</strong> selon le domaine choisi :
+        </p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.25rem;">
+          <div style="background:var(--darker); border:1px solid rgba(0,200,150,0.3); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:12px; font-weight:700; color:var(--green); margin-bottom:6px;">Option SISR &#9989;</div>
+            <div style="font-size:12px; font-weight:600; color:var(--white); margin-bottom:4px;">Solutions d'Infrastructure, Systèmes et Réseaux</div>
+            <p style="font-size:12px; color:var(--muted); line-height:1.7;">Administrer les serveurs, configurer les réseaux, sécuriser les infrastructures et assurer la maintenance du parc informatique.</p>
+          </div>
+          <div style="background:var(--darker); border:1px solid var(--border); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:12px; font-weight:700; color:var(--muted); margin-bottom:6px;">Option SLAM</div>
+            <div style="font-size:12px; font-weight:600; color:var(--white); margin-bottom:4px;">Solutions Logicielles et Applications Métiers</div>
+            <p style="font-size:12px; color:var(--muted); line-height:1.7;">Développer des applications, concevoir des bases de données et créer des solutions logicielles adaptées aux besoins des entreprises.</p>
+          </div>
+        </div>
+        <div style="background:var(--darker); border-radius:8px; padding:12px 14px;">
+          <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px; font-weight:700;">Métiers visés après le BTS SIO SISR</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Technicien réseau</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Administrateur systèmes</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Technicien support</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Responsable infrastructure</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Technicien cybersécurité</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:1.25rem; align-items:center;">
+        <p style="font-size:15px; color:var(--text);">Vous retrouverez mon CV et mon tableau de synthèse ci-dessous :</p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:12px;">
+      <a href="Cv_exam_bayina_jason_.pdf" download style="display:inline-flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 20px; text-decoration:none; color:var(--text); font-size:14px; font-weight:500; transition:border-color 0.15s;">
+        <span style="font-size:1.5rem;">&#128196;</span>
+        <div>
+          <div style="color:var(--white); font-weight:600;">CV_Bayina_Jason.pdf</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:2px;">Cliquer pour télécharger</div>
+        </div>
+        <span style="margin-left:12px; font-size:18px; color:var(--green);">&#8659;</span>
+      </a>
+      <a href="tableau_synthese_e4.xlsx" download style="display:inline-flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 20px; text-decoration:none; color:var(--text); font-size:14px; font-weight:500; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#1d6f42'" onmouseout="this.style.borderColor='var(--border)'" >
+        <span style="font-size:1.5rem;">&#128202;</span>
+        <div>
+          <div style="color:var(--white); font-weight:600;">Tableau de synthèse E4</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:2px;">Cliquer pour télécharger</div>
+        </div>
+        <span style="margin-left:12px; font-size:18px; color:#1d6f42;">&#8659;</span>
+      </a>
+      </div>
+    </div>
+
+    <!-- OS UTILISÉS -->
+    <div style="margin-top:2.5rem;">
+      <p style="font-size:16px; font-weight:600; color:var(--white); margin-bottom:1.25rem;">Systèmes d’exploitations utilisés</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+        <!-- WINDOWS -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#0078d4'" onmouseout="this.style.borderColor='var(--border)'"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 88 88">
+            <polygon points="0,12.5 40,7 40,43 0,43" fill="#00adef"/>
+            <polygon points="44,6.4 88,0 88,43 44,43" fill="#00adef"/>
+            <polygon points="0,47 40,47 40,81 0,75" fill="#00adef"/>
+            <polygon points="44,47 88,47 88,88 44,81.5" fill="#00adef"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">Windows</span>
+        </div>
+
+        <!-- LINUX -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#ffcc00'" onmouseout="this.style.borderColor='var(--border)'"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 48 48">
+            <path d="M24 2C14 2 10 10 10 18c0 5 1.5 9 4 12l-2 4c-1 2 0 4 2 4h1l1 4h2l1-2h10l1 2h2l1-4h1c2 0 3-2 2-4l-2-4c2.5-3 4-7 4-12C38 10 34 2 24 2z" fill="#ffcc00"/>
+            <ellipse cx="19" cy="20" rx="2.5" ry="3" fill="#333"/>
+            <ellipse cx="29" cy="20" rx="2.5" ry="3" fill="#333"/>
+            <path d="M20 27 Q24 31 28 27" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M18 14 Q19 10 22 11" stroke="#333" stroke-width="1.2" fill="none"/>
+            <path d="M30 14 Q29 10 26 11" stroke="#333" stroke-width="1.2" fill="none"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">Linux</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIRTUALISATION & RÉSEAUX -->
+    <div style="margin-top:2rem;">
+      <p style="font-size:16px; font-weight:600; color:var(--white); margin-bottom:1.25rem;">Virtualisation &amp; R&eacute;seaux</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+        <!-- PROXMOX -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#e57000'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="#e57000" stroke-width="6"/>
+            <text x="50" y="57" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="22" fill="#e57000">PVE</text>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">Proxmox</span>
+        </div>
+
+        <!-- PUTTY -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#00aa00'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <rect x="8" y="15" width="84" height="60" rx="6" fill="#1a1a1a" stroke="#00aa00" stroke-width="4"/>
+            <rect x="8" y="15" width="84" height="14" rx="6" fill="#00aa00"/>
+            <circle cx="20" cy="22" r="4" fill="#ff5f56"/>
+            <circle cx="34" cy="22" r="4" fill="#ffbd2e"/>
+            <circle cx="48" cy="22" r="4" fill="#27c93f"/>
+            <text x="18" y="58" font-family="monospace" font-size="14" fill="#00aa00">$ _</text>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">PuTTY</span>
+        </div>
+
+        <!-- ANYDESK -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#ef3e3e'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="#ef3e3e"/>
+            <path d="M30 65 L50 25 L70 65" stroke="white" stroke-width="8" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+            <line x1="37" y1="52" x2="63" y2="52" stroke="white" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">AnyDesk</span>
+        </div>
+
+        <!-- VIRTUALBOX -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#1e5fa3'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <rect x="10" y="25" width="55" height="42" rx="5" fill="#1e5fa3"/>
+            <rect x="14" y="29" width="47" height="34" rx="3" fill="#4a9edd"/>
+            <rect x="35" y="67" width="10" height="8" fill="#1e5fa3"/>
+            <rect x="25" y="73" width="30" height="4" rx="2" fill="#1e5fa3"/>
+            <rect x="68" y="35" width="22" height="30" rx="4" fill="#e8a020" opacity="0.9"/>
+            <rect x="72" y="39" width="14" height="22" rx="2" fill="#ffd080"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">VirtualBox</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section id="parcours" class="section-block section-alt">
+  <div class="container reveal">
+    <div class="section-label">Formation</div>
+    <h2 class="section-title">Parcours scolaire</h2>
+
+    <div style="display:flex; flex-direction:column; gap:16px; margin-top:0.5rem;">
+
+      <!-- BTS SIO -->
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem 2rem; display:flex; align-items:center; gap:1.5rem; transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'" >
+        <div style="background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.25); border-radius:10px; padding:10px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--green); white-space:nowrap;">2024 — 2026</div>
+        <div>
+          <div style="font-size:1rem; font-weight:700; color:var(--white); margin-bottom:4px;">BTS SIO — option SISR</div>
+          <div style="font-size:13px; color:var(--muted);">H3 Campus &middot; Poissy</div>
+        </div>
+        <div style="margin-left:auto; font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; background:rgba(0,200,150,0.1); color:var(--green); border:1px solid rgba(0,200,150,0.25); white-space:nowrap;">En cours</div>
+      </div>
+
+      <!-- BAC -->
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem 2rem; display:flex; align-items:center; gap:1.5rem; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#888'" onmouseout="this.style.borderColor='var(--border)'" >
+        <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:10px; padding:10px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--muted); white-space:nowrap;">2019 — 2023</div>
+        <div>
+          <div style="font-size:1rem; font-weight:700; color:var(--white); margin-bottom:4px;">Baccalaur&eacute;at G&eacute;n&eacute;ral</div>
+          <div style="font-size:13px; color:var(--muted);">Lyc&eacute;e Le Corbusier &middot; Poissy</div>
+        </div>
+        <div style="margin-left:auto; font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; background:rgba(255,255,255,0.05); color:var(--muted); border:1px solid var(--border); white-space:nowrap;">Obtenu</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STAGES -->
+<section id="stages" class="section-block">
+  <div class="container reveal">
+    <div class="section-label">Expériences en entreprise</div>
+    <h2 class="section-title">Stages</h2>
+    <p class="section-desc">Situations professionnelles réalisées dans le cadre du BTS SIO — Épreuve E5.</p>
+
+    <div class="stage-card">
+      <div class="stage-head">
+        <div>
+          <div class="stage-org">Centre Hospitalier de Poissy</div>
+          <div class="stage-period">Janvier 2025 — Mars 2025 · 8 semaines · Service Informatique</div>
+        </div>
+        
+      </div>
+      <div class="stage-body">
+        <p class="stage-context">Au sein du service informatique d'un établissement de santé public, j'ai intégré une équipe chargée de la gestion et du maintien en condition opérationnelle du parc informatique hospitalier.</p>
+        <div class="missions-label">Missions réalisées</div>
+        <div class="mission"><span class="m-num">01</span><div class="m-text"><strong>Traitement de tickets via GLPI</strong> — Prise en charge des demandes utilisateurs (soignants, administratifs), diagnostic, résolution et clôture dans le respect des priorités du service.</div></div>
+        <div class="mission"><span class="m-num">02</span><div class="m-text"><strong>Déploiement de logiciels avec WAPT</strong> — Distribution de paquets logiciels sur les postes du parc, vérification de la bonne installation et gestion des erreurs de déploiement.</div></div>
+        <div class="mission"><span class="m-num">03</span><div class="m-text"><strong>Inventaire du parc informatique sous Excel</strong> — Recensement et mise à jour des équipements (postes, imprimantes, périphériques), localisation par service, état et affectation.</div></div>
+      </div>
+      <div class="stage-footer">
+        <span class="tool">GLPI</span><span class="tool">WAPT</span><span class="tool">Excel</span><span class="tool">Windows 10/11</span><span class="tool">Ticketing</span>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-head">
+        <div>
+          <div class="stage-org">ASV — Société de services de voiturage</div>
+          <div class="stage-period">Janvier 2026 — Avril 2026 · 8 semaines effectuées · Service Informatique</div>
+        </div>
+        
+      </div>
+      <div class="stage-body">
+        <p class="stage-context">Au sein d'une PME spécialisée dans le transport de personnes, j'ai été rattaché au responsable informatique pour assurer le support aux utilisateurs et participer à la mise à jour du parc informatique.</p>
+        <div class="missions-label">Missions réalisées</div>
+        <div class="mission"><span class="m-num">01</span><div class="m-text"><strong>Assistance aux utilisateurs</strong> — Résolution de pannes matérielles et logicielles sur les postes, accompagnement à la prise en main des outils bureautiques.</div></div>
+        <div class="mission"><span class="m-num">02</span><div class="m-text"><strong>Inventaire et mise à jour du parc</strong> — Recensement des équipements (ordinateurs, tablettes chauffeurs), vérification des versions d'OS, signalement des équipements obsolètes.</div></div>
+        <div class="mission"><span class="m-num">03</span><div class="m-text"><strong>Configuration de postes</strong> — Préparation de deux nouveaux postes (installation Windows, jonction au domaine Active Directory, installation des logiciels métier).</div></div>
+      </div>
+      <div class="stage-footer">
+        <span class="tool">Windows 10/11</span><span class="tool">Active Directory</span><span class="tool">Office 365</span><span class="tool">Support N1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section id="realisations" class="section-block section-alt">
+  <div class="container reveal">
+    <div class="section-label">Fiches E6 &amp; Travaux Pratiques</div>
+    <h2 class="section-title">Réalisations</h2>
+    <p class="section-desc">Cliquez sur une réalisation pour consulter la fiche E6 complète.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:1rem;">
+
+      <!-- CARTE GLPI -->
+      <div onclick="var a=document.createElement('a');a.href='fiche_e6_glpi.pdf';a.download='fiche_e6_glpi.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#ff6600';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#ff6600" stroke-width="3"/>
+          <text x="50" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="28" fill="#ff6600">G</text>
+          <text x="50" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="#ff6600">lpi</text>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">GLPI</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Gestion de parc</div>
+        </div>
+        <div style="font-size:11px; color:#ff6600; border:1px solid rgba(255,102,0,0.3); border-radius:20px; padding:3px 10px;">Fiche E6 n°1</div>
+      </div>
+
+      <!-- CARTE VLAN -->
+      <div onclick="var a=document.createElement('a');a.href='Bloc2-VLAN.pdf';a.download='Bloc2-VLAN.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#1ba0d7';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#1ba0d7" stroke-width="3"/>
+          <rect x="20" y="30" width="18" height="12" rx="3" fill="#1ba0d7"/>
+          <rect x="62" y="30" width="18" height="12" rx="3" fill="#1ba0d7"/>
+          <rect x="41" y="55" width="18" height="12" rx="3" fill="#1ba0d7"/>
+          <line x1="29" y1="42" x2="50" y2="55" stroke="#1ba0d7" stroke-width="2"/>
+          <line x1="71" y1="42" x2="50" y2="55" stroke="#1ba0d7" stroke-width="2"/>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">VLAN</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Réseaux & Commutation</div>
+        </div>
+        <div style="font-size:11px; color:#1ba0d7; border:1px solid rgba(27,160,215,0.3); border-radius:20px; padding:3px 10px;">Cours Cisco</div>
+      </div>
+
+      <!-- PLACEHOLDER -->
+      <div style="background:var(--card); border:2px dashed var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; min-height:180px;">
+        <span style="font-size:2rem;">➕</span>
+        <!-- CARTE NAS -->
+      <div onclick="var a=document.createElement('a');a.href='fiche_e6_nas.pdf';a.download='fiche_e6_nas.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#00aaff';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#00aaff" stroke-width="3"/><rect x="18" y="22" width="64" height="18" rx="4" fill="#00aaff" opacity="0.15" stroke="#00aaff" stroke-width="2"/><rect x="18" y="46" width="64" height="18" rx="4" fill="#00aaff" opacity="0.15" stroke="#00aaff" stroke-width="2"/><circle cx="72" cy="31" r="4" fill="#00aaff"/><circle cx="72" cy="55" r="4" fill="#00aaff"/><rect x="22" y="27" width="30" height="6" rx="2" fill="#00aaff" opacity="0.6"/><rect x="22" y="51" width="30" height="6" rx="2" fill="#00aaff" opacity="0.6"/></svg>
+        <div style="text-align:center;"><div style="font-size:14px; font-weight:700; color:var(--white);">NAS</div><div style="font-size:11px; color:var(--muted); margin-top:3px;">Serveur de stockage</div></div>
+        <div style="font-size:11px; color:#00aaff; border:1px solid rgba(0,170,255,0.3); border-radius:20px; padding:3px 10px;">Fiche E6 n°2</div>
+      </div>
+
+      <!-- CARTE WAPT -->
+      <div onclick="document.getElementById('modal-wapt').style.display='flex'" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#7ab648';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#7ab648" stroke-width="3"/>
+          <rect x="15" y="30" width="70" height="40" rx="4" fill="#7ab648" opacity="0.15" stroke="#7ab648" stroke-width="2"/>
+          <rect x="22" y="38" width="20" height="6" rx="2" fill="#7ab648" opacity="0.8"/>
+          <rect x="22" y="50" width="30" height="6" rx="2" fill="#7ab648" opacity="0.8"/>
+          <rect x="22" y="62" width="25" height="6" rx="2" fill="#7ab648" opacity="0.8"/>
+          <circle cx="68" cy="41" r="5" fill="#7ab648"/>
+          <circle cx="68" cy="53" r="5" fill="#7ab648" opacity="0.5"/>
+          <circle cx="68" cy="65" r="5" fill="#7ab648" opacity="0.3"/>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">WAPT</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Déploiement de paquets</div>
+        </div>
+        <div style="font-size:11px; color:#7ab648; border:1px solid rgba(122,182,72,0.3); border-radius:20px; padding:3px 10px;">Stage Poissy</div>
+      </div>
+
+      <!-- CARTE EXCEL -->
+      <div onclick="document.getElementById('modal-excel').style.display='flex'" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#1d6f42';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1d6f42"/>
+          <rect x="18" y="18" width="64" height="64" rx="6" fill="#fff" opacity="0.1"/>
+          <text x="50" y="56" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="white">X</text>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">Excel</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Inventaire du parc</div>
+        </div>
+        <div style="font-size:11px; color:#1d6f42; border:1px solid rgba(29,111,66,0.4); border-radius:20px; padding:3px 10px; background:rgba(29,111,66,0.1);">Stages</div>
+      </div>
+
+      <!-- CARTE VIRTUALBOX -->
+      <div onclick="var a=document.createElement('a');a.href='tp_virtualbox_ubuntu.pdf';a.download='tp_virtualbox_ubuntu.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#1e5fa3';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#1e5fa3" stroke-width="3"/>
+          <rect x="12" y="28" width="52" height="38" rx="5" fill="#1e5fa3"/>
+          <rect x="16" y="32" width="44" height="30" rx="3" fill="#4a9edd"/>
+          <rect x="34" y="66" width="10" height="7" fill="#1e5fa3"/>
+          <rect x="24" y="71" width="28" height="4" rx="2" fill="#1e5fa3"/>
+          <rect x="68" y="38" width="20" height="26" rx="4" fill="#e8a020" opacity="0.9"/>
+          <rect x="72" y="42" width="12" height="18" rx="2" fill="#ffd080"/>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">VirtualBox</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Virtualisation & VM</div>
+        </div>
+        <div style="font-size:11px; color:#4a9edd; border:1px solid rgba(74,158,221,0.3); border-radius:20px; padding:3px 10px;">TP Cours</div>
+      </div>
+
+      
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- VEILLE -->
+<section id="veille" class="section-block">
+  <div class="container reveal">
+    <div class="section-label">Surveillance &amp; actualité IT</div>
+    <h2 class="section-title">Veille technologique</h2>
+    <p class="section-desc">Suivi régulier des actualités et évolutions du domaine de l'infrastructure et de la cybersécurité.</p>
+
+    <!-- ONGLET DÉFINITION -->
+    <div style="margin-bottom:2rem;">
+      <button onclick="var d=document.getElementById('def-veille');var a=document.getElementById('arrow-veille');if(d.style.display==='none'){d.style.display='block';a.style.transform='rotate(90deg)'}else{d.style.display='none';a.style.transform='rotate(0deg)'}" style="width:100%; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:1.2rem;">&#128270;</span>
+          <span style="font-size:14px; font-weight:600; color:var(--white);">Qu'est-ce qu'une veille technologique ?</span>
+        </div>
+        <span id="arrow-veille" style="color:var(--green); font-size:18px; transition:transform 0.2s;">&#9654;</span>
+      </button>
+      <div id="def-veille" style="display:none; background:var(--card); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; padding:1.5rem 1.75rem;">
+        <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:1rem;">
+          La <strong style="color:var(--white);">veille technologique</strong> est un processus continu de surveillance et de collecte d'informations sur les évolutions technologiques, les nouvelles tendances, les innovations et les menaces du secteur informatique. Elle permet à un professionnel de rester à jour et d'anticiper les changements qui pourraient impacter son environnement de travail.
+        </p>
+        <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:1rem;">
+          Dans le cadre du BTS SIO option SISR, la veille technologique est essentielle pour suivre les évolutions en matière de <strong style="color:var(--white);">sécurité des systèmes</strong>, de <strong style="color:var(--white);">réseaux</strong>, de <strong style="color:var(--white);">virtualisation</strong> et d'<strong style="color:var(--white);">administration des infrastructures</strong>.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:0.75rem;">
+          <span style="background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.25); border-radius:20px; padding:4px 12px; font-size:12px; color:var(--green);">&#128240; Lecture d'articles spécialisés</span>
+          <span style="background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.25); border-radius:20px; padding:4px 12px; font-size:12px; color:var(--green);">&#128279; Flux RSS &amp; newsletters</span>
+          <span style="background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.25); border-radius:20px; padding:4px 12px; font-size:12px; color:var(--green);">&#128101; Forums &amp; communautés</span>
+          <span style="background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.25); border-radius:20px; padding:4px 12px; font-size:12px; color:var(--green);">&#128202; Rapports &amp; publications officielles</span>
+        </div>
+      </div>
+    </div>
+
+        <!-- THÈMES DE VEILLE -->
+    <div style="margin-top:1rem;">
+
+      <!-- ONGLET THÈME 1 -->
+      <div style="margin-bottom:12px;">
+        <button onclick="var d=document.getElementById('theme1');var a=document.getElementById('arrow1');if(d.style.display==='none'){d.style.display='block';a.style.transform='rotate(90deg)'}else{d.style.display='none';a.style.transform='rotate(0deg)'}" style="width:100%; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:11px; font-weight:700; padding:4px 12px; border-radius:20px; background:rgba(0,200,150,0.1); color:var(--green); border:1px solid rgba(0,200,150,0.25); white-space:nowrap;">Thème 1</span>
+            <span style="font-size:14px; font-weight:600; color:var(--white);">La 5G et son impact sur les entreprises</span>
+          </div>
+          <span id="arrow1" style="color:var(--green); font-size:18px; transition:transform 0.2s;">&#9654;</span>
+        </button>
+        <div id="theme1" style="display:none; background:var(--card); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; padding:1.5rem 1.75rem;">
+          <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:1rem;">
+            La <strong style="color:var(--white);">5G</strong> c'est la 5ème génération de réseau mobile, après la 4G. Imagine une autoroute à 2 voies (4G) — la 5G c'est la même autoroute mais avec 10 voies, beaucoup plus rapide et qui peut accueillir beaucoup plus de voitures en même temps.
+          </p>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="background:var(--darker); border-radius:8px; padding:12px 14px; font-size:13.5px; color:var(--muted); line-height:1.75;"><strong style="color:var(--white);">&#9889; La vitesse</strong> — Télécharger un fichier de 1 Go prend quelques secondes au lieu de plusieurs minutes. Pour une entreprise ça veut dire transférer des données volumineuses quasi instantanément.</div>
+            <div style="background:var(--darker); border-radius:8px; padding:12px 14px; font-size:13.5px; color:var(--muted); line-height:1.75;"><strong style="color:var(--white);">&#9201; La latence quasi nulle</strong> — La latence c'est le temps entre le moment où tu envoies une information et où elle arrive. En 4G c'est environ 50ms, en 5G c'est moins de 1ms. Cela permet de piloter une machine à distance en temps réel sans décalage.</div>
+            <div style="background:var(--darker); border-radius:8px; padding:12px 14px; font-size:13.5px; color:var(--muted); line-height:1.75;"><strong style="color:var(--white);">&#128225; Connecter des milliers d'appareils</strong> — En 4G un réseau sature vite. La 5G peut connecter des milliers d'objets connectés (capteurs, caméras, machines) en même temps — c'est ce qu'on appelle l'<strong style="color:var(--white);">IoT</strong>.</div>
+            <div style="background:var(--darker); border-radius:8px; padding:12px 14px; font-size:13.5px; color:var(--muted); line-height:1.75;"><strong style="color:var(--white);">&#128274; Les risques pour les administrateurs réseau</strong> — Plus d'appareils connectés = plus de portes d'entrée pour les hackers. Il faut donc sécuriser tous ces nouveaux accès, ce qui crée de nouveaux besoins en infrastructure et en cybersécurité.</div>
+          </div>
+          <div style="margin-top:1.25rem;">
+            <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px; font-weight:700;">Sources</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <a href="https://www.arcep.fr/la-regulation/grands-dossiers-reseaux-mobiles/la-5g.html" target="_blank" style="display:flex; align-items:center; gap:10px; background:var(--darker); border:1px solid var(--border); border-radius:8px; padding:10px 14px; text-decoration:none; transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'" >
+                <span style="font-size:1rem;">&#127760;</span>
+                <div><div style="font-size:13px; font-weight:600; color:var(--white);">ARCEP — La 5G en France</div><div style="font-size:11px; color:var(--muted);">arcep.fr</div></div>
+                <span style="margin-left:auto; color:var(--green); font-size:12px;">&#8599;</span>
+              </a>
+              <a href="https://www.zdnet.fr/actualites/5g-entreprises-39957682.htm" target="_blank" style="display:flex; align-items:center; gap:10px; background:var(--darker); border:1px solid var(--border); border-radius:8px; padding:10px 14px; text-decoration:none; transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'" >
+                <span style="font-size:1rem;">&#128240;</span>
+                <div><div style="font-size:13px; font-weight:600; color:var(--white);">ZDNet — La 5G et les entreprises</div><div style="font-size:11px; color:var(--muted);">zdnet.fr</div></div>
+                <span style="margin-left:auto; color:var(--green); font-size:12px;">&#8599;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ONGLET THÈME 2 -->
+      <div style="margin-bottom:12px;">
+        <button onclick="var d=document.getElementById('theme2');var a=document.getElementById('arrow2');if(d.style.display==='none'){d.style.display='block';a.style.transform='rotate(90deg)'}else{d.style.display='none';a.style.transform='rotate(0deg)'}" style="width:100%; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:11px; font-weight:700; padding:4px 12px; border-radius:20px; background:rgba(0,170,255,0.1); color:#00aaff; border:1px solid rgba(0,170,255,0.25); white-space:nowrap;">Thème 2</span>
+            <span style="font-size:14px; font-weight:600; color:var(--white);">Enjeux et impact de la 5G</span>
+          </div>
+          <span id="arrow2" style="color:#00aaff; font-size:18px; transition:transform 0.2s;">&#9654;</span>
+        </button>
+        <div id="theme2" style="display:none; background:var(--card); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; padding:1.5rem 1.75rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:1.25rem;">
+            <div style="background:var(--darker); border-radius:8px; padding:12px 14px;">
+              <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--green); margin-bottom:8px; font-weight:700;">Enjeux principaux</div>
+              <ul style="list-style:none; font-size:13px; color:var(--muted); line-height:1.9;">
+                <li style="display:flex; gap:8px;"><span style="color:var(--green);">&#9658;</span>Ultra faible latence (&lt;1ms)</li>
+                <li style="display:flex; gap:8px;"><span style="color:var(--green);">&#9658;</span>Connexion massive d'objets (IoT)</li>
+                <li style="display:flex; gap:8px;"><span style="color:var(--green);">&#9658;</span>Virtualisation du réseau (NFV/SDN)</li>
+                <li style="display:flex; gap:8px;"><span style="color:var(--green);">&#9658;</span>Sécurisation des nouveaux accès</li>
+              </ul>
+            </div>
+            <div style="background:var(--darker); border-radius:8px; padding:12px 14px;">
+              <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#00aaff; margin-bottom:8px; font-weight:700;">Impact en entreprise</div>
+              <ul style="list-style:none; font-size:13px; color:var(--muted); line-height:1.9;">
+                <li style="display:flex; gap:8px;"><span style="color:#00aaff;">&#9658;</span>Réseaux privés 5G d'entreprise</li>
+                <li style="display:flex; gap:8px;"><span style="color:#00aaff;">&#9658;</span>Industrie 4.0 &amp; automatisation</li>
+                <li style="display:flex; gap:8px;"><span style="color:#00aaff;">&#9658;</span>Télétravail et mobilité avancée</li>
+                <li style="display:flex; gap:8px;"><span style="color:#00aaff;">&#9658;</span>Nouvelles menaces cybersécurité</li>
+              </ul>
+            </div>
+          </div>
+          <div style="background:var(--darker); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px; font-weight:700;">Sources utilisées</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <a href="https://www.lemagit.fr/dossier/5G-en-entreprise" target="_blank" style="display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 14px; text-decoration:none; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#00aaff'" onmouseout="this.style.borderColor='var(--border)'" >
+                <span style="font-size:1rem;">&#128241;</span>
+                <div><div style="font-size:13px; font-weight:600; color:var(--white);">LeMagIT — 5G en entreprise</div><div style="font-size:11px; color:var(--muted);">lemagit.fr</div></div>
+                <span style="margin-left:auto; color:#00aaff; font-size:12px;">&#8599;</span>
+              </a>
+              <a href="https://www.etsi.org/technologies/5g" target="_blank" style="display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 14px; text-decoration:none; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#00aaff'" onmouseout="this.style.borderColor='var(--border)'" >
+                <span style="font-size:1rem;">&#128202;</span>
+                <div><div style="font-size:13px; font-weight:600; color:var(--white);">ETSI — Rapports officiels 5G</div><div style="font-size:11px; color:var(--muted);">etsi.org</div></div>
+                <span style="margin-left:auto; color:#00aaff; font-size:12px;">&#8599;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+      </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-block section-alt">
+  <div class="container reveal">
+    <div class="section-label">Me joindre</div>
+    <h2 class="section-title">Contact</h2>
+    <p class="section-desc">N'hésitez pas à me contacter pour toute question relative à mon parcours.</p>
+    <div class="contact-grid">
+      <div class="contact-card"><span class="c-ico">📧</span><div><div class="c-label">Email</div><div class="c-val">jason.bayina@gmail.com</div></div></div>
+      <div class="contact-card"><span class="c-ico">📞</span><div><div class="c-label">Téléphone</div><div class="c-val">06.17.49.67.12</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Jason Bayina<br>Portfolio
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 }).observe && reveals.forEach(r => {
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 }).observe(r);
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' }).observe && sections.forEach(s => {
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(l => l.classList.remove('active'));
+          const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' }).observe(s);
+  });
+</script>
+
+<!-- MODAL WAPT -->
+<div id="modal-wapt" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:#1a1a1a; border:1px solid #333; border-radius:16px; max-width:780px; width:100%; max-height:90vh; overflow-y:auto;">
+    <div style="padding:1.25rem 1.75rem; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:#1a1a1a; z-index:1;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="12" fill="#1a1a1a" stroke="#7ab648" stroke-width="3"/><rect x="15" y="30" width="70" height="40" rx="4" fill="#7ab648" opacity="0.15" stroke="#7ab648" stroke-width="2"/><rect x="22" y="38" width="20" height="6" rx="2" fill="#7ab648"/><rect x="22" y="50" width="30" height="6" rx="2" fill="#7ab648" opacity="0.8"/><circle cx="68" cy="41" r="5" fill="#7ab648"/></svg>
+        <div>
+          <div style="font-size:15px; font-weight:700; color:#fff;">WAPT — Déploiement de paquets</div>
+          <div style="font-size:12px; color:#888;">Stage — Centre Hospitalier de Poissy</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('modal-wapt').style.display='none'" style="background:none; border:none; color:#888; font-size:22px; cursor:pointer; line-height:1;">&times;</button>
+    </div>
+    <div style="padding:1.75rem; font-size:13.5px; line-height:1.75; color:#ccc;">
+
+      <p style="margin-bottom:1.5rem;">Durant mon stage au Centre Hospitalier de Poissy, j'ai utilisé <strong style="color:#7ab648;">WAPT</strong> (Windows Automated Package Tool) afin de déployer des paquets logiciels sur l'ensemble des PC du parc informatique hospitalier. Cet outil permettait de centraliser la gestion des installations logicielles et d'automatiser les déploiements à distance sur les postes clients, sans intervention manuelle poste par poste.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;">
+        <div style="background:#222; border-radius:8px; padding:10px 14px;"><div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:3px;">Outil</div><div style="color:#fff; font-weight:500;">WAPT Console 2.5.5</div></div>
+        <div style="background:#222; border-radius:8px; padding:10px 14px;"><div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:3px;">Lieu</div><div style="color:#fff; font-weight:500;">Hôpital de Poissy</div></div>
+        <div style="background:#222; border-radius:8px; padding:10px 14px; grid-column:1/-1;"><div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:3px;">Domaine Active Directory</div><div style="color:#fff; font-weight:500;">chi-psg.local — OU Clients lourds / POISSY</div></div>
+      </div>
+
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#7ab648; margin-bottom:10px;">Ce que j'ai réalisé</div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Déploiement de paquets logiciels (Office 2021, Firefox, dotnet, vcredist…) sur les postes du parc via la console WAPT</div>
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Jonction des machines au domaine Active Directory (Djoin) dans les bonnes Unités d'Organisation</div>
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Vérification du bon déploiement et gestion des erreurs d'installation sur les postes clients</div>
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Suivi en temps réel des statuts d'installation (Install finish / Running script postinstall)</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#7ab648; margin-bottom:10px;">Captures d'écran</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="border-radius:8px; overflow:hidden; border:1px solid #333;">
+            <img src="wapt_djoin.jpeg" alt="Console WAPT - Djoin Active Directory" style="width:100%; display:block; object-fit:cover;">
+            <div style="padding:8px 10px; font-size:11px; color:#888; background:#222;">Djoin — Jonction au domaine chi-psg.local</div>
+          </div>
+          <div style="border-radius:8px; overflow:hidden; border:1px solid #333;">
+            <img src="wapt_paquets.jpeg" alt="Console WAPT - Liste des paquets" style="width:100%; display:block; object-fit:cover;">
+            <div style="padding:8px 10px; font-size:11px; color:#888; background:#222;">Liste des paquets déployés (40 paquets)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EXCEL -->
+<div id="modal-excel" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:#1a1a1a; border:1px solid #333; border-radius:16px; max-width:720px; width:100%; max-height:90vh; overflow-y:auto;">
+    <div style="padding:1.25rem 1.75rem; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:#1a1a1a; z-index:1;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="12" fill="#1d6f42"/><text x="50" y="56" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="white">X</text></svg>
+        <div>
+          <div style="font-size:15px; font-weight:700; color:#fff;">Excel — Inventaire du parc informatique</div>
+          <div style="font-size:12px; color:#888;">Hôpital de Poissy &amp; ASV</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('modal-excel').style.display='none'" style="background:none; border:none; color:#888; font-size:22px; cursor:pointer;">&times;</button>
+    </div>
+    <div style="padding:1.75rem; font-size:13.5px; line-height:1.75; color:#ccc;">
+
+      <p style="margin-bottom:1.5rem;">Dans le cadre de mes deux stages, j'ai utilisé <strong style="color:#1d6f42;">Microsoft Excel</strong> pour réaliser et mettre à jour l'inventaire complet du matériel informatique. Cet outil m'a permis de centraliser et structurer toutes les informations relatives aux équipements, facilitant ainsi le suivi du parc et la prise de décision du service informatique.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;">
+        <div style="background:#222; border-radius:8px; padding:12px 14px;">
+          <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:6px;">Hôpital de Poissy</div>
+          <ul style="list-style:none; color:#ccc; font-size:13px; line-height:1.9;">
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Recensement des postes fixes, portables et imprimantes</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Localisation par service (urgences, bloc, administration…)</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Suivi de l'état et de l'affectation de chaque équipement</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Mise à jour régulière en lien avec les tickets GLPI</li>
+          </ul>
+        </div>
+        <div style="background:#222; border-radius:8px; padding:12px 14px;">
+          <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:6px;">ASV — Société de voiturage</div>
+          <ul style="list-style:none; color:#ccc; font-size:13px; line-height:1.9;">
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Recensement des ordinateurs fixes, portables et tablettes chauffeurs</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Vérification des versions d'OS et des logiciels installés</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Identification et signalement des équipements obsolètes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:#222; border-radius:8px; padding:14px 16px;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#1d6f42; margin-bottom:10px;">Données suivies dans le fichier Excel</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Nom du matériel</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Marque / Modèle</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Numéro de série</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Service / Localisation</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">État de l'équipement</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Utilisateur affecté</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Système d'exploitation</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Date de mise en service</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Jason Bayina | BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green: #00c896;
+    --green-dark: #00a07a;
+    --dark: #1a1a1a;
+    --darker: #111111;
+    --card: #222222;
+    --card2: #2a2a2a;
+    --border: #333333;
+    --text: #e8e8e8;
+    --muted: #888888;
+    --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--darker); color: var(--text); line-height: 1.6; font-size: 15px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(20,20,20,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+  }
+  .nav-logo { font-size: 22px; }
+  .nav-links { display: flex; list-style: none; }
+  .nav-links a {
+    display: block; padding: 0 1.1rem;
+    font-size: 14px; font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; line-height: 60px;
+    transition: color 0.15s; white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--white); font-weight: 600; }
+
+  /* HERO */
+  .hero {
+    height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.72)),
+      url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1800&q=80') center/cover no-repeat;
+  }
+  .hero-content { position: relative; z-index: 1; padding: 0 1.5rem; }
+  .hero-content h1 {
+    font-size: clamp(3rem, 7vw, 5.2rem);
+    font-weight: 700; color: var(--white);
+    line-height: 1.08; margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-content p { font-size: 1.05rem; color: rgba(255,255,255,0.65); font-weight: 300; margin-bottom: 2rem; }
+  .hero-btn {
+    display: inline-block; padding: 13px 34px;
+    background: var(--green); color: #000;
+    font-weight: 600; font-size: 14px;
+    border-radius: 6px; text-decoration: none;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .hero-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  /* SECTIONS */
+  section { scroll-margin-top: 60px; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+  .section-block { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+  .section-alt { background: rgba(0,0,0,0.25); }
+  .section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+  .section-desc { font-size: 14.5px; color: var(--muted); max-width: 580px; line-height: 1.75; margin-bottom: 2.5rem; }
+
+  /* À PROPOS */
+  .apropos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .apropos-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 14.5px; }
+  .info-list { list-style: none; }
+  .info-list li { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .info-list li:last-child { border-bottom: none; }
+  .info-key { color: var(--muted); width: 120px; flex-shrink: 0; }
+  .info-val { color: var(--text); font-weight: 500; }
+
+  /* COMPÉTENCES */
+  .skills-cat { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 2rem 0 1rem; }
+  .skills-cat:first-of-type { margin-top: 0; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 13px 15px; display: flex; align-items: center; gap: 10px;
+    font-size: 13.5px; font-weight: 500; color: var(--text);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .skill-card:hover { border-color: var(--green); background: var(--card2); }
+  .sk-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  /* STAGES */
+  .stage-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .stage-card:hover { border-color: #444; }
+  .stage-head {
+    padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  }
+  .stage-org { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .stage-period { font-size: 13px; color: var(--muted); }
+  .stage-badge { font-size: 11px; font-weight: 600; padding: 4px 14px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .badge-reel { background: rgba(0,200,150,0.1); color: var(--green); border: 1px solid rgba(0,200,150,0.25); }
+  .badge-sim  { background: rgba(120,100,255,0.1); color: #a89aff; border: 1px solid rgba(120,100,255,0.25); }
+  .stage-body { padding: 1.5rem 2rem; }
+  .stage-context { color: var(--muted); font-size: 14px; line-height: 1.75; margin-bottom: 1.5rem; }
+  .missions-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .mission { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .mission:last-child { border-bottom: none; }
+  .m-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green); font-weight: 500; flex-shrink: 0; padding-top: 2px; }
+  .m-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
+  .m-text strong { color: var(--text); font-weight: 600; }
+  .stage-footer { padding: 1rem 2rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px; background: rgba(0,0,0,0.2); }
+  .tool { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; padding: 3px 10px; border-radius: 5px; background: var(--card2); border: 1px solid var(--border); color: var(--text); }
+
+  /* COURS */
+  .cours-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; transition: border-color 0.2s; }
+  .cours-card:hover { border-color: #444; }
+  .cours-head { display: flex; align-items: stretch; }
+  .cours-stripe { width: 4px; background: #1ba0d7; flex-shrink: 0; }
+  .cours-head-inner { flex: 1; padding: 1.2rem 1.75rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border); }
+  .cours-name { font-size: 1.05rem; font-weight: 700; color: var(--white); }
+  .cours-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .cours-badge { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; background: rgba(27,160,215,0.1); color: #5bc8f0; border: 1px solid rgba(27,160,215,0.2); white-space: nowrap; flex-shrink: 0; }
+  .cours-body { padding: 1.5rem 1.75rem; }
+  .cours-summary { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+  .notions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+  .notion { font-size: 12px; padding: 3px 10px; border-radius: 20px; background: var(--card2); border: 1px solid var(--border); color: var(--muted); }
+  .code-block { background: #0d1117; border-radius: 8px; padding: 14px 16px; }
+  .code-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 10px; }
+  .code-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .code-tags span { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); background: rgba(0,200,150,0.07); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(0,200,150,0.15); }
+
+  /* VEILLE / CERTIFICATIONS */
+  .placeholder { border: 2px dashed var(--border); border-radius: 12px; padding: 2.5rem; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.8; }
+  .ph-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .contact-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; gap: 14px; transition: border-color 0.15s; }
+  .contact-card:hover { border-color: var(--green); }
+  .c-ico { font-size: 1.5rem; }
+  .c-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .c-val { font-size: 14px; font-weight: 500; color: var(--text); margin-top: 2px; }
+
+  footer { padding: 2rem; text-align: center; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
+  footer span { color: var(--green); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🦁</div>
+  <ul class="nav-links">
+    <li><a href="#accueil" class="active">Accueil</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#parcours">Parcours scolaire</a></li>
+    <li><a href="#stages">Stages</a></li>
+    <li><a href="#realisations">Réalisations</a></li>
+    <li><a href="#veille">Veille technologique</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="accueil" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Bienvenue sur mon<br>Portfolio !</h1>
+    <p>Bayina Jason — Élève BTS SIO SISR</p>
+    <a href="#apropos" class="hero-btn">Découvrir mon profil</a>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos" class="section-block">
+  <div class="container reveal">
+    <div class="section-label">Qui suis-je ?</div>
+    <h2 class="section-title">À propos</h2>
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p style="font-size:1.15rem; font-weight:600; color:var(--white); margin-bottom:1.25rem;">Je m'appelle Jason Bayina.</p>
+        <p>Actuellement en 2ème année de BTS SIO option SISR (Solutions d'Infrastructure, Systèmes et Réseaux), je me forme aux métiers de l'administration systèmes et réseaux.</p>
+        <p>Je suis titulaire d'un Baccalauréat Général avec les options SVT (Sciences de la Vie et de la Terre) et SES (Sciences Économiques et Sociales).</p>
+      </div>
+      <ul class="info-list">
+        <li><span class="info-key">Nom</span><span class="info-val">Jason Bayina</span></li>
+        <li><span class="info-key">Formation</span><span class="info-val">BTS SIO &mdash; SISR</span></li>
+        <li><span class="info-key">&Eacute;tablissement</span><span class="info-val">H3 Campus</span></li>
+        <li><span class="info-key">Ann&eacute;e</span><span class="info-val">2024 &ndash; 2026</span></li>
+        <li><span class="info-key">Email</span><span class="info-val">jason.bayina@gmail.com</span></li>
+
+      </ul>
+    </div>
+
+    <!-- ONGLET BTS SIO -->
+    <div style="margin-top:2.5rem; margin-bottom:1.5rem;">
+      <button onclick="var d=document.getElementById('def-bts');var a=document.getElementById('arrow-bts');if(d.style.display==='none'){d.style.display='block';a.style.transform='rotate(90deg)'}else{d.style.display='none';a.style.transform='rotate(0deg)'}" style="width:100%; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:1.2rem;">&#127979;</span>
+          <span style="font-size:14px; font-weight:600; color:var(--white);">Qu'est-ce que le BTS SIO ?</span>
+        </div>
+        <span id="arrow-bts" style="color:var(--green); font-size:18px; transition:transform 0.2s;">&#9654;</span>
+      </button>
+      <div id="def-bts" style="display:none; background:var(--card); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; padding:1.5rem 1.75rem;">
+        <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:1.25rem;">
+          Le <strong style="color:var(--white);">BTS SIO</strong> (Brevet de Technicien Supérieur Services Informatiques aux Organisations) est un diplôme de niveau Bac+2 qui forme des techniciens capables de gérer, administrer et sécuriser les systèmes informatiques au sein des entreprises et organisations.
+        </p>
+        <p style="font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:1.25rem;">
+          Il se décline en <strong style="color:var(--white);">deux options</strong> selon le domaine choisi :
+        </p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.25rem;">
+          <div style="background:var(--darker); border:1px solid rgba(0,200,150,0.3); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:12px; font-weight:700; color:var(--green); margin-bottom:6px;">Option SISR &#9989;</div>
+            <div style="font-size:12px; font-weight:600; color:var(--white); margin-bottom:4px;">Solutions d'Infrastructure, Systèmes et Réseaux</div>
+            <p style="font-size:12px; color:var(--muted); line-height:1.7;">Administrer les serveurs, configurer les réseaux, sécuriser les infrastructures et assurer la maintenance du parc informatique.</p>
+          </div>
+          <div style="background:var(--darker); border:1px solid var(--border); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:12px; font-weight:700; color:var(--muted); margin-bottom:6px;">Option SLAM</div>
+            <div style="font-size:12px; font-weight:600; color:var(--white); margin-bottom:4px;">Solutions Logicielles et Applications Métiers</div>
+            <p style="font-size:12px; color:var(--muted); line-height:1.7;">Développer des applications, concevoir des bases de données et créer des solutions logicielles adaptées aux besoins des entreprises.</p>
+          </div>
+        </div>
+        <div style="background:var(--darker); border-radius:8px; padding:12px 14px;">
+          <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px; font-weight:700;">Métiers visés après le BTS SIO SISR</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Technicien réseau</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Administrateur systèmes</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Technicien support</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Responsable infrastructure</span>
+            <span style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--muted);">Technicien cybersécurité</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:1.25rem; align-items:center;">
+        <p style="font-size:15px; color:var(--text);">Vous retrouverez mon CV et mon tableau de synthèse ci-dessous :</p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:12px;">
+      <a href="Cv_exam_bayina_jason_.pdf" download style="display:inline-flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 20px; text-decoration:none; color:var(--text); font-size:14px; font-weight:500; transition:border-color 0.15s;">
+        <span style="font-size:1.5rem;">&#128196;</span>
+        <div>
+          <div style="color:var(--white); font-weight:600;">CV_Bayina_Jason.pdf</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:2px;">Cliquer pour télécharger</div>
+        </div>
+        <span style="margin-left:12px; font-size:18px; color:var(--green);">&#8659;</span>
+      </a>
+      <a href="tableau_synthese_e4.xlsx" download style="display:inline-flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 20px; text-decoration:none; color:var(--text); font-size:14px; font-weight:500; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#1d6f42'" onmouseout="this.style.borderColor='var(--border)'" >
+        <span style="font-size:1.5rem;">&#128202;</span>
+        <div>
+          <div style="color:var(--white); font-weight:600;">Tableau de synthèse E4</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:2px;">Cliquer pour télécharger</div>
+        </div>
+        <span style="margin-left:12px; font-size:18px; color:#1d6f42;">&#8659;</span>
+      </a>
+      </div>
+    </div>
+
+    <!-- OS UTILISÉS -->
+    <div style="margin-top:2.5rem;">
+      <p style="font-size:16px; font-weight:600; color:var(--white); margin-bottom:1.25rem;">Systèmes d’exploitations utilisés</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+        <!-- WINDOWS -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#0078d4'" onmouseout="this.style.borderColor='var(--border)'"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 88 88">
+            <polygon points="0,12.5 40,7 40,43 0,43" fill="#00adef"/>
+            <polygon points="44,6.4 88,0 88,43 44,43" fill="#00adef"/>
+            <polygon points="0,47 40,47 40,81 0,75" fill="#00adef"/>
+            <polygon points="44,47 88,47 88,88 44,81.5" fill="#00adef"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">Windows</span>
+        </div>
+
+        <!-- LINUX -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#ffcc00'" onmouseout="this.style.borderColor='var(--border)'"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 48 48">
+            <path d="M24 2C14 2 10 10 10 18c0 5 1.5 9 4 12l-2 4c-1 2 0 4 2 4h1l1 4h2l1-2h10l1 2h2l1-4h1c2 0 3-2 2-4l-2-4c2.5-3 4-7 4-12C38 10 34 2 24 2z" fill="#ffcc00"/>
+            <ellipse cx="19" cy="20" rx="2.5" ry="3" fill="#333"/>
+            <ellipse cx="29" cy="20" rx="2.5" ry="3" fill="#333"/>
+            <path d="M20 27 Q24 31 28 27" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M18 14 Q19 10 22 11" stroke="#333" stroke-width="1.2" fill="none"/>
+            <path d="M30 14 Q29 10 26 11" stroke="#333" stroke-width="1.2" fill="none"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">Linux</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIRTUALISATION & RÉSEAUX -->
+    <div style="margin-top:2rem;">
+      <p style="font-size:16px; font-weight:600; color:var(--white); margin-bottom:1.25rem;">Virtualisation &amp; R&eacute;seaux</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+        <!-- PROXMOX -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#e57000'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="#e57000" stroke-width="6"/>
+            <text x="50" y="57" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="22" fill="#e57000">PVE</text>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">Proxmox</span>
+        </div>
+
+        <!-- PUTTY -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#00aa00'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <rect x="8" y="15" width="84" height="60" rx="6" fill="#1a1a1a" stroke="#00aa00" stroke-width="4"/>
+            <rect x="8" y="15" width="84" height="14" rx="6" fill="#00aa00"/>
+            <circle cx="20" cy="22" r="4" fill="#ff5f56"/>
+            <circle cx="34" cy="22" r="4" fill="#ffbd2e"/>
+            <circle cx="48" cy="22" r="4" fill="#27c93f"/>
+            <text x="18" y="58" font-family="monospace" font-size="14" fill="#00aa00">$ _</text>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">PuTTY</span>
+        </div>
+
+        <!-- ANYDESK -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#ef3e3e'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="#ef3e3e"/>
+            <path d="M30 65 L50 25 L70 65" stroke="white" stroke-width="8" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+            <line x1="37" y1="52" x2="63" y2="52" stroke="white" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">AnyDesk</span>
+        </div>
+
+        <!-- VIRTUALBOX -->
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:150px; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#1e5fa3'" onmouseout="this.style.borderColor='var(--border)'" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100">
+            <rect x="10" y="25" width="55" height="42" rx="5" fill="#1e5fa3"/>
+            <rect x="14" y="29" width="47" height="34" rx="3" fill="#4a9edd"/>
+            <rect x="35" y="67" width="10" height="8" fill="#1e5fa3"/>
+            <rect x="25" y="73" width="30" height="4" rx="2" fill="#1e5fa3"/>
+            <rect x="68" y="35" width="22" height="30" rx="4" fill="#e8a020" opacity="0.9"/>
+            <rect x="72" y="39" width="14" height="22" rx="2" fill="#ffd080"/>
+          </svg>
+          <span style="font-size:14px; font-weight:500; color:var(--text);">VirtualBox</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section id="parcours" class="section-block section-alt">
+  <div class="container reveal">
+    <div class="section-label">Formation</div>
+    <h2 class="section-title">Parcours scolaire</h2>
+
+    <div style="display:flex; flex-direction:column; gap:16px; margin-top:0.5rem;">
+
+      <!-- BTS SIO -->
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem 2rem; display:flex; align-items:center; gap:1.5rem; transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'" >
+        <div style="background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.25); border-radius:10px; padding:10px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--green); white-space:nowrap;">2024 — 2026</div>
+        <div>
+          <div style="font-size:1rem; font-weight:700; color:var(--white); margin-bottom:4px;">BTS SIO — option SISR</div>
+          <div style="font-size:13px; color:var(--muted);">H3 Campus &middot; Poissy</div>
+        </div>
+        <div style="margin-left:auto; font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; background:rgba(0,200,150,0.1); color:var(--green); border:1px solid rgba(0,200,150,0.25); white-space:nowrap;">En cours</div>
+      </div>
+
+      <!-- BAC -->
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem 2rem; display:flex; align-items:center; gap:1.5rem; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#888'" onmouseout="this.style.borderColor='var(--border)'" >
+        <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:10px; padding:10px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--muted); white-space:nowrap;">2019 — 2023</div>
+        <div>
+          <div style="font-size:1rem; font-weight:700; color:var(--white); margin-bottom:4px;">Baccalaur&eacute;at G&eacute;n&eacute;ral</div>
+          <div style="font-size:13px; color:var(--muted);">Lyc&eacute;e Le Corbusier &middot; Poissy</div>
+        </div>
+        <div style="margin-left:auto; font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; background:rgba(255,255,255,0.05); color:var(--muted); border:1px solid var(--border); white-space:nowrap;">Obtenu</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STAGES -->
+<section id="stages" class="section-block">
+  <div class="container reveal">
+    <div class="section-label">Expériences en entreprise</div>
+    <h2 class="section-title">Stages</h2>
+    <p class="section-desc">Situations professionnelles réalisées dans le cadre du BTS SIO — Épreuve E5.</p>
+
+    <div class="stage-card">
+      <div class="stage-head">
+        <div>
+          <div class="stage-org">Centre Hospitalier de Poissy</div>
+          <div class="stage-period">Janvier 2025 — Mars 2025 · 8 semaines · Service Informatique</div>
+        </div>
+        
+      </div>
+      <div class="stage-body">
+        <p class="stage-context">Au sein du service informatique d'un établissement de santé public, j'ai intégré une équipe chargée de la gestion et du maintien en condition opérationnelle du parc informatique hospitalier.</p>
+        <div class="missions-label">Missions réalisées</div>
+        <div class="mission"><span class="m-num">01</span><div class="m-text"><strong>Traitement de tickets via GLPI</strong> — Prise en charge des demandes utilisateurs (soignants, administratifs), diagnostic, résolution et clôture dans le respect des priorités du service.</div></div>
+        <div class="mission"><span class="m-num">02</span><div class="m-text"><strong>Déploiement de logiciels avec WAPT</strong> — Distribution de paquets logiciels sur les postes du parc, vérification de la bonne installation et gestion des erreurs de déploiement.</div></div>
+        <div class="mission"><span class="m-num">03</span><div class="m-text"><strong>Inventaire du parc informatique sous Excel</strong> — Recensement et mise à jour des équipements (postes, imprimantes, périphériques), localisation par service, état et affectation.</div></div>
+      </div>
+      <div class="stage-footer">
+        <span class="tool">GLPI</span><span class="tool">WAPT</span><span class="tool">Excel</span><span class="tool">Windows 10/11</span><span class="tool">Ticketing</span>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-head">
+        <div>
+          <div class="stage-org">ASV — Société de services de voiturage</div>
+          <div class="stage-period">Janvier 2026 — Avril 2026 · 8 semaines effectuées · Service Informatique</div>
+        </div>
+        
+      </div>
+      <div class="stage-body">
+        <p class="stage-context">Au sein d'une PME spécialisée dans le transport de personnes, j'ai été rattaché au responsable informatique pour assurer le support aux utilisateurs et participer à la mise à jour du parc informatique.</p>
+        <div class="missions-label">Missions réalisées</div>
+        <div class="mission"><span class="m-num">01</span><div class="m-text"><strong>Assistance aux utilisateurs</strong> — Résolution de pannes matérielles et logicielles sur les postes, accompagnement à la prise en main des outils bureautiques.</div></div>
+        <div class="mission"><span class="m-num">02</span><div class="m-text"><strong>Inventaire et mise à jour du parc</strong> — Recensement des équipements (ordinateurs, tablettes chauffeurs), vérification des versions d'OS, signalement des équipements obsolètes.</div></div>
+        <div class="mission"><span class="m-num">03</span><div class="m-text"><strong>Configuration de postes</strong> — Préparation de deux nouveaux postes (installation Windows, jonction au domaine Active Directory, installation des logiciels métier).</div></div>
+      </div>
+      <div class="stage-footer">
+        <span class="tool">Windows 10/11</span><span class="tool">Active Directory</span><span class="tool">Office 365</span><span class="tool">Support N1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section id="realisations" class="section-block section-alt">
+  <div class="container reveal">
+    <div class="section-label">Fiches E6 &amp; Travaux Pratiques</div>
+    <h2 class="section-title">Réalisations</h2>
+    <p class="section-desc">Cliquez sur une réalisation pour consulter la fiche E6 complète.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:1rem;">
+
+      <!-- CARTE GLPI -->
+      <div onclick="var a=document.createElement('a');a.href='fiche_e6_glpi.pdf';a.download='fiche_e6_glpi.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#ff6600';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#ff6600" stroke-width="3"/>
+          <text x="50" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="28" fill="#ff6600">G</text>
+          <text x="50" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="#ff6600">lpi</text>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">GLPI</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Gestion de parc</div>
+        </div>
+        <div style="font-size:11px; color:#ff6600; border:1px solid rgba(255,102,0,0.3); border-radius:20px; padding:3px 10px;">Fiche E6 n°1</div>
+      </div>
+
+      <!-- CARTE VLAN -->
+      <div onclick="var a=document.createElement('a');a.href='Bloc2-VLAN.pdf';a.download='Bloc2-VLAN.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#1ba0d7';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#1ba0d7" stroke-width="3"/>
+          <rect x="20" y="30" width="18" height="12" rx="3" fill="#1ba0d7"/>
+          <rect x="62" y="30" width="18" height="12" rx="3" fill="#1ba0d7"/>
+          <rect x="41" y="55" width="18" height="12" rx="3" fill="#1ba0d7"/>
+          <line x1="29" y1="42" x2="50" y2="55" stroke="#1ba0d7" stroke-width="2"/>
+          <line x1="71" y1="42" x2="50" y2="55" stroke="#1ba0d7" stroke-width="2"/>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">VLAN</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Réseaux & Commutation</div>
+        </div>
+        <div style="font-size:11px; color:#1ba0d7; border:1px solid rgba(27,160,215,0.3); border-radius:20px; padding:3px 10px;">Cours Cisco</div>
+      </div>
+
+      <!-- PLACEHOLDER -->
+      <div style="background:var(--card); border:2px dashed var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; min-height:180px;">
+        <span style="font-size:2rem;">➕</span>
+        <!-- CARTE NAS -->
+      <div onclick="var a=document.createElement('a');a.href='fiche_e6_nas.pdf';a.download='fiche_e6_nas.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#00aaff';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#00aaff" stroke-width="3"/><rect x="18" y="22" width="64" height="18" rx="4" fill="#00aaff" opacity="0.15" stroke="#00aaff" stroke-width="2"/><rect x="18" y="46" width="64" height="18" rx="4" fill="#00aaff" opacity="0.15" stroke="#00aaff" stroke-width="2"/><circle cx="72" cy="31" r="4" fill="#00aaff"/><circle cx="72" cy="55" r="4" fill="#00aaff"/><rect x="22" y="27" width="30" height="6" rx="2" fill="#00aaff" opacity="0.6"/><rect x="22" y="51" width="30" height="6" rx="2" fill="#00aaff" opacity="0.6"/></svg>
+        <div style="text-align:center;"><div style="font-size:14px; font-weight:700; color:var(--white);">NAS</div><div style="font-size:11px; color:var(--muted); margin-top:3px;">Serveur de stockage</div></div>
+        <div style="font-size:11px; color:#00aaff; border:1px solid rgba(0,170,255,0.3); border-radius:20px; padding:3px 10px;">Fiche E6 n°2</div>
+      </div>
+
+      <!-- CARTE WAPT -->
+      <div onclick="document.getElementById('modal-wapt').style.display='flex'" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#7ab648';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#7ab648" stroke-width="3"/>
+          <rect x="15" y="30" width="70" height="40" rx="4" fill="#7ab648" opacity="0.15" stroke="#7ab648" stroke-width="2"/>
+          <rect x="22" y="38" width="20" height="6" rx="2" fill="#7ab648" opacity="0.8"/>
+          <rect x="22" y="50" width="30" height="6" rx="2" fill="#7ab648" opacity="0.8"/>
+          <rect x="22" y="62" width="25" height="6" rx="2" fill="#7ab648" opacity="0.8"/>
+          <circle cx="68" cy="41" r="5" fill="#7ab648"/>
+          <circle cx="68" cy="53" r="5" fill="#7ab648" opacity="0.5"/>
+          <circle cx="68" cy="65" r="5" fill="#7ab648" opacity="0.3"/>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">WAPT</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Déploiement de paquets</div>
+        </div>
+        <div style="font-size:11px; color:#7ab648; border:1px solid rgba(122,182,72,0.3); border-radius:20px; padding:3px 10px;">Stage Poissy</div>
+      </div>
+
+      <!-- CARTE EXCEL -->
+      <div onclick="document.getElementById('modal-excel').style.display='flex'" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#1d6f42';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1d6f42"/>
+          <rect x="18" y="18" width="64" height="64" rx="6" fill="#fff" opacity="0.1"/>
+          <text x="50" y="56" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="white">X</text>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">Excel</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Inventaire du parc</div>
+        </div>
+        <div style="font-size:11px; color:#1d6f42; border:1px solid rgba(29,111,66,0.4); border-radius:20px; padding:3px 10px; background:rgba(29,111,66,0.1);">Stages</div>
+      </div>
+
+      <!-- CARTE VIRTUALBOX -->
+      <div onclick="var a=document.createElement('a');a.href='tp_virtualbox_ubuntu.pdf';a.download='tp_virtualbox_ubuntu.pdf';a.click()" style="background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.75rem 1rem; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:pointer; transition:border-color 0.2s, transform 0.2s;" onmouseover="this.style.borderColor='#1e5fa3';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+          <rect x="5" y="5" width="90" height="90" rx="16" fill="#1a1a1a" stroke="#1e5fa3" stroke-width="3"/>
+          <rect x="12" y="28" width="52" height="38" rx="5" fill="#1e5fa3"/>
+          <rect x="16" y="32" width="44" height="30" rx="3" fill="#4a9edd"/>
+          <rect x="34" y="66" width="10" height="7" fill="#1e5fa3"/>
+          <rect x="24" y="71" width="28" height="4" rx="2" fill="#1e5fa3"/>
+          <rect x="68" y="38" width="20" height="26" rx="4" fill="#e8a020" opacity="0.9"/>
+          <rect x="72" y="42" width="12" height="18" rx="2" fill="#ffd080"/>
+        </svg>
+        <div style="text-align:center;">
+          <div style="font-size:14px; font-weight:700; color:var(--white);">VirtualBox</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:3px;">Virtualisation & VM</div>
+        </div>
+        <div style="font-size:11px; color:#4a9edd; border:1px solid rgba(74,158,221,0.3); border-radius:20px; padding:3px 10px;">TP Cours</div>
+      </div>
+
+      <div style="font-size:12px; color:var(--muted); text-align:center;">Prochaine réalisation</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- VEILLE -->
+<section id="veille" class="section-block">
+  <div class="container reveal">
+    <div class="section-label">Surveillance & actualité IT</div>
+    <h2 class="section-title">Veille technologique</h2>
+    <p class="section-desc">Suivi régulier des actualités et évolutions du domaine de l'infrastructure et de la cybersécurité.</p>
+    <div class="placeholder">
+      <span class="ph-icon">🔍</span>
+      Thème de veille à définir<br>
+      <span style="font-size:13px;color:#666">Outils envisagés : Feedly, Reddit r/netsec, flux RSS ANSSI…</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-block section-alt">
+  <div class="container reveal">
+    <div class="section-label">Me joindre</div>
+    <h2 class="section-title">Contact</h2>
+    <p class="section-desc">N'hésitez pas à me contacter pour toute question relative à mon parcours.</p>
+    <div class="contact-grid">
+      <div class="contact-card"><span class="c-ico">📧</span><div><div class="c-label">Email</div><div class="c-val">jason.bayina@gmail.com</div></div></div>
+      <div class="contact-card"><span class="c-ico">📞</span><div><div class="c-label">Téléphone</div><div class="c-val">06.17.49.67.12</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Jason Bayina<br>Portfolio
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 }).observe && reveals.forEach(r => {
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 }).observe(r);
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' }).observe && sections.forEach(s => {
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(l => l.classList.remove('active'));
+          const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' }).observe(s);
+  });
+</script>
+
+<!-- MODAL WAPT -->
+<div id="modal-wapt" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:#1a1a1a; border:1px solid #333; border-radius:16px; max-width:780px; width:100%; max-height:90vh; overflow-y:auto;">
+    <div style="padding:1.25rem 1.75rem; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:#1a1a1a; z-index:1;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="12" fill="#1a1a1a" stroke="#7ab648" stroke-width="3"/><rect x="15" y="30" width="70" height="40" rx="4" fill="#7ab648" opacity="0.15" stroke="#7ab648" stroke-width="2"/><rect x="22" y="38" width="20" height="6" rx="2" fill="#7ab648"/><rect x="22" y="50" width="30" height="6" rx="2" fill="#7ab648" opacity="0.8"/><circle cx="68" cy="41" r="5" fill="#7ab648"/></svg>
+        <div>
+          <div style="font-size:15px; font-weight:700; color:#fff;">WAPT — Déploiement de paquets</div>
+          <div style="font-size:12px; color:#888;">Stage — Centre Hospitalier de Poissy</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('modal-wapt').style.display='none'" style="background:none; border:none; color:#888; font-size:22px; cursor:pointer; line-height:1;">&times;</button>
+    </div>
+    <div style="padding:1.75rem; font-size:13.5px; line-height:1.75; color:#ccc;">
+
+      <p style="margin-bottom:1.5rem;">Durant mon stage au Centre Hospitalier de Poissy, j'ai utilisé <strong style="color:#7ab648;">WAPT</strong> (Windows Automated Package Tool) afin de déployer des paquets logiciels sur l'ensemble des PC du parc informatique hospitalier. Cet outil permettait de centraliser la gestion des installations logicielles et d'automatiser les déploiements à distance sur les postes clients, sans intervention manuelle poste par poste.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;">
+        <div style="background:#222; border-radius:8px; padding:10px 14px;"><div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:3px;">Outil</div><div style="color:#fff; font-weight:500;">WAPT Console 2.5.5</div></div>
+        <div style="background:#222; border-radius:8px; padding:10px 14px;"><div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:3px;">Lieu</div><div style="color:#fff; font-weight:500;">Hôpital de Poissy</div></div>
+        <div style="background:#222; border-radius:8px; padding:10px 14px; grid-column:1/-1;"><div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:3px;">Domaine Active Directory</div><div style="color:#fff; font-weight:500;">chi-psg.local — OU Clients lourds / POISSY</div></div>
+      </div>
+
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#7ab648; margin-bottom:10px;">Ce que j'ai réalisé</div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Déploiement de paquets logiciels (Office 2021, Firefox, dotnet, vcredist…) sur les postes du parc via la console WAPT</div>
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Jonction des machines au domaine Active Directory (Djoin) dans les bonnes Unités d'Organisation</div>
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Vérification du bon déploiement et gestion des erreurs d'installation sur les postes clients</div>
+          <div style="display:flex; align-items:flex-start; gap:8px; background:#222; border-radius:6px; padding:8px 12px;"><span style="color:#7ab648; flex-shrink:0;">&#9658;</span> Suivi en temps réel des statuts d'installation (Install finish / Running script postinstall)</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#7ab648; margin-bottom:10px;">Captures d'écran</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="border-radius:8px; overflow:hidden; border:1px solid #333;">
+            <img src="wapt_djoin.jpeg" alt="Console WAPT - Djoin Active Directory" style="width:100%; display:block; object-fit:cover;">
+            <div style="padding:8px 10px; font-size:11px; color:#888; background:#222;">Djoin — Jonction au domaine chi-psg.local</div>
+          </div>
+          <div style="border-radius:8px; overflow:hidden; border:1px solid #333;">
+            <img src="wapt_paquets.jpeg" alt="Console WAPT - Liste des paquets" style="width:100%; display:block; object-fit:cover;">
+            <div style="padding:8px 10px; font-size:11px; color:#888; background:#222;">Liste des paquets déployés (40 paquets)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EXCEL -->
+<div id="modal-excel" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:#1a1a1a; border:1px solid #333; border-radius:16px; max-width:720px; width:100%; max-height:90vh; overflow-y:auto;">
+    <div style="padding:1.25rem 1.75rem; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:#1a1a1a; z-index:1;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="12" fill="#1d6f42"/><text x="50" y="56" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="white">X</text></svg>
+        <div>
+          <div style="font-size:15px; font-weight:700; color:#fff;">Excel — Inventaire du parc informatique</div>
+          <div style="font-size:12px; color:#888;">Hôpital de Poissy &amp; ASV</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('modal-excel').style.display='none'" style="background:none; border:none; color:#888; font-size:22px; cursor:pointer;">&times;</button>
+    </div>
+    <div style="padding:1.75rem; font-size:13.5px; line-height:1.75; color:#ccc;">
+
+      <p style="margin-bottom:1.5rem;">Dans le cadre de mes deux stages, j'ai utilisé <strong style="color:#1d6f42;">Microsoft Excel</strong> pour réaliser et mettre à jour l'inventaire complet du matériel informatique. Cet outil m'a permis de centraliser et structurer toutes les informations relatives aux équipements, facilitant ainsi le suivi du parc et la prise de décision du service informatique.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;">
+        <div style="background:#222; border-radius:8px; padding:12px 14px;">
+          <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:6px;">Hôpital de Poissy</div>
+          <ul style="list-style:none; color:#ccc; font-size:13px; line-height:1.9;">
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Recensement des postes fixes, portables et imprimantes</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Localisation par service (urgences, bloc, administration…)</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Suivi de l'état et de l'affectation de chaque équipement</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Mise à jour régulière en lien avec les tickets GLPI</li>
+          </ul>
+        </div>
+        <div style="background:#222; border-radius:8px; padding:12px 14px;">
+          <div style="font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#666; margin-bottom:6px;">ASV — Société de voiturage</div>
+          <ul style="list-style:none; color:#ccc; font-size:13px; line-height:1.9;">
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Recensement des ordinateurs fixes, portables et tablettes chauffeurs</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Vérification des versions d'OS et des logiciels installés</li>
+            <li style="display:flex; gap:8px;"><span style="color:#1d6f42;">&#9658;</span> Identification et signalement des équipements obsolètes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:#222; border-radius:8px; padding:14px 16px;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#1d6f42; margin-bottom:10px;">Données suivies dans le fichier Excel</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Nom du matériel</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Marque / Modèle</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Numéro de série</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Service / Localisation</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">État de l'équipement</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Utilisateur affecté</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Système d'exploitation</span>
+          <span style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:4px 12px; font-size:12px;">Date de mise en service</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL VIRTUALBOX -->
+<div id="modal-vbox" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:#1a1a1a; border:1px solid #333; border-radius:16px; max-width:720px; width:100%; max-height:90vh; overflow-y:auto;">
+    <div style="padding:1.25rem 1.75rem; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:#1a1a1a; z-index:1;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="12" fill="#1a1a1a" stroke="#1e5fa3" stroke-width="3"/><rect x="12" y="28" width="52" height="38" rx="5" fill="#1e5fa3"/><rect x="16" y="32" width="44" height="30" rx="3" fill="#4a9edd"/><rect x="68" y="38" width="20" height="26" rx="4" fill="#e8a020"/></svg>
+        <div>
+          <div style="font-size:15px; font-weight:700; color:#fff;">VirtualBox — Installation d'une VM Ubuntu</div>
+          <div style="font-size:12px; color:#888;">TP Cours — BTS SIO SISR · H3 Campus</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('modal-vbox').style.display='none'" style="background:none; border:none; color:#888; font-size:22px; cursor:pointer;">&times;</button>
+    </div>
+    <div style="padding:1.75rem; font-size:13.5px; line-height:1.75; color:#ccc;">
+
+      <p style="margin-bottom:1.5rem;">Dans le cadre de ma formation, j'ai réalisé un atelier pratique sur la <strong style="color:#4a9edd;">virtualisation</strong> en utilisant <strong style="color:#4a9edd;">VirtualBox</strong>. L'objectif était de créer et configurer une machine virtuelle (VM) sous Ubuntu Linux sur un ordinateur physique, afin de comprendre les concepts fondamentaux de la virtualisation utilisés dans les environnements professionnels.</p>
+
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#4a9edd; margin-bottom:10px;">Concepts abordés</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:1rem;">
+          <span style="background:#222; border:1px solid #333; border-radius:20px; padding:3px 12px; font-size:12px;">Virtualisation</span>
+          <span style="background:#222; border:1px solid #333; border-radius:20px; padding:3px 12px; font-size:12px;">Hyperviseur type 2</span>
+          <span style="background:#222; border:1px solid #333; border-radius:20px; padding:3px 12px; font-size:12px;">Machine virtuelle (VM)</span>
+          <span style="background:#222; border:1px solid #333; border-radius:20px; padding:3px 12px; font-size:12px;">Image ISO</span>
+          <span style="background:#222; border:1px solid #333; border-radius:20px; padding:3px 12px; font-size:12px;">Linux Ubuntu</span>
+          <span style="background:#222; border:1px solid #333; border-radius:20px; padding:3px 12px; font-size:12px;">Système d'exploitation</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#4a9edd; margin-bottom:10px;">Déroulement du TP</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; gap:12px; background:#222; border-radius:8px; padding:10px 14px; align-items:flex-start;"><span style="background:#1e5fa3; color:#fff; font-weight:800; font-size:11px; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span><div><strong style="color:#fff;">Téléchargement des ressources</strong> — Récupération de la dernière version de VirtualBox et de l'image ISO d'Ubuntu, avec vérification de l'intégrité via le hash SHA-256.</div></div>
+          <div style="display:flex; gap:12px; background:#222; border-radius:8px; padding:10px 14px; align-items:flex-start;"><span style="background:#1e5fa3; color:#fff; font-weight:800; font-size:11px; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span><div><strong style="color:#fff;">Installation de VirtualBox</strong> — Installation de l'hyperviseur sur la machine physique hôte.</div></div>
+          <div style="display:flex; gap:12px; background:#222; border-radius:8px; padding:10px 14px; align-items:flex-start;"><span style="background:#1e5fa3; color:#fff; font-weight:800; font-size:11px; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span><div><strong style="color:#fff;">Création de la machine virtuelle</strong> — Configuration du nom, du type Linux/Ubuntu, allocation de 2 Go de RAM minimum et création d'un disque dur virtuel VDI de 40 Go.</div></div>
+          <div style="display:flex; gap:12px; background:#222; border-radius:8px; padding:10px 14px; align-items:flex-start;"><span style="background:#1e5fa3; color:#fff; font-weight:800; font-size:11px; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span><div><strong style="color:#fff;">Installation d'Ubuntu</strong> — Démarrage de la VM, montage de l'ISO, installation du système avec configuration de la langue, localisation et création d'un utilisateur.</div></div>
+          <div style="display:flex; gap:12px; background:#222; border-radius:8px; padding:10px 14px; align-items:flex-start;"><span style="background:#1e5fa3; color:#fff; font-weight:800; font-size:11px; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">5</span><div><strong style="color:#fff;">Configuration supplémentaire</strong> — Installation des additions invité VirtualBox pour améliorer les performances et l'intégration de la VM.</div></div>
+        </div>
+      </div>
+
+      <div style="background:#222; border-radius:8px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+        <div style="font-size:13px; color:#888;">&#128196; Consulter le TP complet</div>
+        <button onclick="var a=document.createElement('a');a.href='tp_virtualbox_ubuntu.pdf';a.download='tp_virtualbox_ubuntu.pdf';a.click()" style="background:#1e5fa3; color:#fff; border:none; border-radius:6px; padding:7px 16px; font-size:12px; font-weight:600; cursor:pointer;">&#8659; Télécharger le PDF</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
